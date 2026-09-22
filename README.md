@@ -28,8 +28,8 @@ mise install
 export HCLOUD_TOKEN="your-api-token"
 
 # Build the default image (FreeBSD 15.1)
-packer init packer/
-packer build packer/fbsd.pkr.hcl
+packer init
+packer build
 ```
 
 ## Configuration
@@ -48,8 +48,7 @@ Example — build FreeBSD 15.0 in Falkenstein:
 ```sh
 packer build \
   -var 'version=15.0' \
-  -var 'location=fsn1' \
-  packer/fbsd.pkr.hcl
+  -var 'location=fsn1'
 ```
 
 ## Build Process
@@ -79,9 +78,17 @@ Labels attached to the snapshot:
 ## Project Structure
 
 ```
-packer/
-├── fbsd.pkr.hcl    # Packer HCL template
-└── mise.toml       # mise tool versions
+├── main.pkr.hcl        # Build orchestrator (sources + provisioners)
+├── template.pkr.hcl    # Hetzner Cloud source (hcloud builder)
+├── variables.pkr.hcl   # Build variables with defaults
+├── locals.pkr.hcl      # Derived values (download URLs, etc.)
+├── versions.pkr.hcl    # Plugin version constraints
+├── mise.toml           # mise tool versions
+└── provisioners/
+    ├── flash-image.sh       # Download and write FreeBSD image to disk
+    ├── install-zfs.sh       # Install OpenZFS on Debian rescue system
+    ├── mount-zfs.sh         # Import pool, inject SSH key, reboot
+    └── configure-freebsd.sh # pkg, cloud-init, rc.conf, cleanup
 ```
 
 ## License
