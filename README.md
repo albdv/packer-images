@@ -28,8 +28,8 @@ mise install
 export HCLOUD_TOKEN="your-api-token"
 
 # Build the default image (FreeBSD 15.1)
-packer init
-packer build
+packer init .
+packer build .
 ```
 
 ## Configuration
@@ -48,7 +48,8 @@ Example — build FreeBSD 15.0 in Falkenstein:
 ```sh
 packer build \
   -var 'version=15.0' \
-  -var 'location=fsn1'
+  -var 'location=fsn1' \
+  .
 ```
 
 ## Build Process
