@@ -66,7 +66,7 @@ The build runs through four provisioning stages:
 Snapshots follow the pattern:
 
 ```
-fbsd{version}-zfs-{YYYYMMDD-hhmm}
+fbsd-zfs-{YYYYMMDD-hhmm}
 ```
 
 Labels attached to the snapshot:
